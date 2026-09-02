@@ -254,16 +254,17 @@ function TopBar() {
   const { mm, ss } = useCountdown(48);
   return (
     <div className="sticky top-0 z-50">
-      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 bg-gradient-to-r from-ember/80 via-primary/70 to-ember/80 px-4 py-2 text-center text-primary-foreground">
+      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 bg-gradient-to-r from-ember via-primary to-ember px-4 py-2 text-center text-primary-foreground">
         <span className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-[0.2em] uppercase">
           <Flame className="size-3.5" /> Lançamento
         </span>
         <span className="text-sm font-semibold">
           Acesso vitalício + 100 missões · <span className="underline">80% OFF</span>
         </span>
-        <span className="rounded-sm bg-black/35 px-2 py-0.5 font-mono text-xs tracking-widest">
+        <span className="rounded-sm bg-primary-foreground px-2 py-0.5 font-mono text-xs tracking-widest text-primary">
           {mm}:{ss}
         </span>
+
       </div>
       <header className="border-b border-border/60 bg-background shadow-[0_1px_0_0_oklch(0.79_0.135_84/0.12)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5">
