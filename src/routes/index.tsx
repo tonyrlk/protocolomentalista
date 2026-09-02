@@ -907,6 +907,14 @@ function Faq() {
 function FinalCta() {
   return (
     <section className="relative overflow-hidden border-t border-border/60 px-5 py-24 text-center">
+      <img
+        src={heroImage}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="pointer-events-none absolute inset-0 size-full object-cover opacity-15"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/70 via-background/85 to-background" />
       <div className="pointer-events-none absolute inset-0 grid-noir opacity-30" />
       <div className="relative mx-auto max-w-3xl">
         <h2 className="font-display text-3xl leading-tight text-balance sm:text-5xl">
