@@ -386,7 +386,7 @@ function Hero() {
                 ].map(([t, s]) => (
                   <div
                     key={t}
-                    className="rounded-sm border border-border/70 bg-background/50 px-2 py-2.5 text-center"
+                    className="lift rounded-sm border border-border/70 bg-background/50 px-2 py-2.5 text-center"
                   >
                     <p className="font-mono text-[10px] tracking-[0.14em] text-primary uppercase">
                       {t}
@@ -397,7 +397,7 @@ function Hero() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
