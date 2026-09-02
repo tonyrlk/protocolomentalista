@@ -207,3 +207,111 @@
   );
 }
 
+
+/* Hide Lovable badge */
+#lovable-badge {
+  display: none !important;
+}
+
+/* ── motion system ─────────────────────────────────────────────── */
+@keyframes obs-rise {
+  from { opacity: 0; transform: translateY(38px) scale(0.985); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes obs-slide-left {
+  from { opacity: 0; transform: translateX(-46px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes obs-slide-right {
+  from { opacity: 0; transform: translateX(46px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes obs-zoom {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes obs-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+@keyframes obs-glow {
+  0%, 100% { box-shadow: 0 0 30px -12px var(--primary); }
+  50%      { box-shadow: 0 0 60px -6px var(--primary); }
+}
+@keyframes obs-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes obs-scan {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  40%  { opacity: 1; }
+  100% { transform: translateY(1200%); opacity: 0; }
+}
+@keyframes obs-ring {
+  0%   { transform: scale(0.8); opacity: 0.7; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@utility reveal {
+  opacity: 0;
+}
+.reveal.is-in {
+  animation: obs-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-left.is-in {
+  animation: obs-slide-left 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-right.is-in {
+  animation: obs-slide-right 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-zoom.is-in {
+  animation: obs-zoom 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@utility float-slow {
+  animation: obs-float 7s ease-in-out infinite;
+}
+@utility glow-pulse {
+  animation: obs-glow 2.6s ease-in-out infinite;
+}
+@utility shimmer-text {
+  background-image: linear-gradient(
+    100deg,
+    var(--foreground) 20%,
+    var(--primary) 40%,
+    var(--signal) 52%,
+    var(--foreground) 70%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: obs-shimmer 5.5s linear infinite;
+}
+@utility scan-line {
+  animation: obs-scan 4.5s ease-in-out infinite;
+}
+@utility lift {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+.lift:hover {
+  transform: translateY(-6px);
+  border-color: oklch(0.79 0.135 84 / 0.5);
+  box-shadow: 0 18px 50px -22px var(--primary);
+}
+@utility ping-ring {
+  animation: obs-ring 2.2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.is-in, .reveal-left.is-in, .reveal-right.is-in, .reveal-zoom.is-in {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .float-slow, .glow-pulse, .shimmer-text, .scan-line, .ping-ring {
+    animation: none !important;
+  }
+}
