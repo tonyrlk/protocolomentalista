@@ -15,7 +15,7 @@
  *
  * To add a new semantic color:
  * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--name)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
  */
 
 @theme inline {
@@ -104,6 +104,8 @@
   --card-foreground: oklch(0.984 0.003 247.858);
   --popover: oklch(0.208 0.042 265.755);
   --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
   --secondary: oklch(0.279 0.041 260.031);
   --secondary-foreground: oklch(0.984 0.003 247.858);
   --muted: oklch(0.279 0.041 260.031);
@@ -131,8 +133,14 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  body { background-color: var(--color-background); color: var(--color-foreground); }
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
 }
 
 /* ── The Observer :: noir & gold protocol theme ────────────────── */
@@ -178,7 +186,9 @@
       radial-gradient(ellipse 70% 45% at 0% 60%, oklch(0.36 0.06 84 / 0.14), transparent 72%);
     background-attachment: fixed;
   }
-  ::selection { background: oklch(0.79 0.135 84 / 0.3); }
+  ::selection {
+    background: oklch(0.79 0.135 84 / 0.3);
+  }
 }
 
 @utility grid-noir {
@@ -189,288 +199,136 @@
 }
 
 @utility gold-rule {
-  background-image: linear-gradient(90deg, transparent, oklch(0.79 0.135 84 / 0.6), transparent);
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    oklch(0.79 0.135 84 / 0.6),
+    transparent
+  );
 }
 
-#lovable-badge { display: none !important; }
 
+/* Hide Lovable badge */
+#lovable-badge {
+  display: none !important;
+}
+
+/* ── motion system ─────────────────────────────────────────────── */
 @keyframes obs-rise {
   from { opacity: 0; transform: translateY(38px) scale(0.985); filter: blur(6px); }
-  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 @keyframes obs-slide-left {
   from { opacity: 0; transform: translateX(-46px); }
-  to { opacity: 1; transform: translateX(0); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 @keyframes obs-slide-right {
   from { opacity: 0; transform: translateX(46px); }
-  to { opacity: 1; transform: translateX(0); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 @keyframes obs-zoom {
   from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+  to   { opacity: 1; transform: scale(1); }
 }
 @keyframes obs-float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+  50%      { transform: translateY(-14px); }
 }
 @keyframes obs-glow {
   0%, 100% { box-shadow: 0 0 30px -12px var(--primary); }
-  50% { box-shadow: 0 0 60px -6px var(--primary); }
+  50%      { box-shadow: 0 0 60px -6px var(--primary); }
 }
 @keyframes obs-shimmer {
-  0% { background-position: -200% center; }
+  0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 @keyframes obs-scan {
-  0% { transform: translateY(-100%); opacity: 0; }
-  40% { opacity: 1; }
+  0%   { transform: translateY(-100%); opacity: 0; }
+  40%  { opacity: 1; }
   100% { transform: translateY(1200%); opacity: 0; }
 }
 @keyframes obs-ring {
-  0% { transform: scale(0.8); opacity: 0.7; }
+  0%   { transform: scale(0.8); opacity: 0.7; }
   100% { transform: scale(2.2); opacity: 0; }
 }
 
-@utility reveal { opacity: 0; }
-.reveal.is-in { animation: obs-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.reveal-left.is-in { animation: obs-slide-left 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.reveal-right.is-in { animation: obs-slide-right 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.reveal-zoom.is-in { animation: obs-zoom 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-@utility float-slow { animation: obs-float 7s ease-in-out infinite; }
-@utility glow-pulse { animation: obs-glow 2.6s ease-in-out infinite; }
+@utility reveal {
+  opacity: 0;
+}
+.reveal.is-in {
+  animation: obs-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-left.is-in {
+  animation: obs-slide-left 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-right.is-in {
+  animation: obs-slide-right 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-zoom.is-in {
+  animation: obs-zoom 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@utility float-slow {
+  animation: obs-float 7s ease-in-out infinite;
+}
+@utility glow-pulse {
+  animation: obs-glow 2.6s ease-in-out infinite;
+}
 @utility shimmer-text {
-  background-image: linear-gradient(100deg, var(--foreground) 20%, var(--primary) 40%, var(--signal) 52%, var(--foreground) 70%);
+  background-image: linear-gradient(
+    100deg,
+    var(--foreground) 20%,
+    var(--primary) 40%,
+    var(--signal) 52%,
+    var(--foreground) 70%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   animation: obs-shimmer 5.5s linear infinite;
 }
-@utility scan-line { animation: obs-scan 4.5s ease-in-out infinite; }
+@utility scan-line {
+  animation: obs-scan 4.5s ease-in-out infinite;
+}
 @utility lift {
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
 }
 .lift:hover {
   transform: translateY(-6px);
   border-color: oklch(0.79 0.135 84 / 0.5);
   box-shadow: 0 18px 50px -22px var(--primary);
 }
-@utility ping-ring { animation: obs-ring 2.2s ease-out infinite; }
+@utility ping-ring {
+  animation: obs-ring 2.2s ease-out infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal.is-in, .reveal-left.is-in, .reveal-right.is-in, .reveal-zoom.is-in { animation: none !important; opacity: 1 !important; }
-  .float-slow, .glow-pulse, .shimmer-text, .scan-line, .ping-ring { animation: none !important; }
+  .reveal, .reveal.is-in, .reveal-left.is-in, .reveal-right.is-in, .reveal-zoom.is-in {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .float-slow, .glow-pulse, .shimmer-text, .scan-line, .ping-ring {
+    animation: none !important;
+  }
 }
 
-/* ── testimonials: premium Instagram Direct-style simulations ── */
+/* ── testimonials marquee ──────────────────────────────────────── */
 @keyframes obs-marquee {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
-
-.marquee {
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden !important;
-  overscroll-behavior-x: contain;
-  -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
-}
-
 .marquee-track {
-  display: flex !important;
-  width: max-content;
-  gap: 0 !important;
-  padding-block: 10px;
-  animation: obs-marquee 58s linear infinite;
+  animation: obs-marquee 42s linear infinite;
   will-change: transform;
-  backface-visibility: hidden;
 }
-
-.marquee-track > figure {
-  position: relative;
-  box-sizing: border-box;
-  width: 348px !important;
-  min-width: 348px !important;
-  height: 370px;
-  margin: 0 16px 0 0 !important;
-  padding: 76px 18px 18px !important;
-  overflow: hidden;
-  isolation: isolate;
-  border: 1px solid oklch(0.95 0.008 85 / 12%) !important;
-  border-radius: 18px !important;
-  background: linear-gradient(180deg, oklch(0.19 0.012 72), oklch(0.125 0.006 70)) !important;
-  box-shadow: 0 22px 70px -36px oklch(0 0 0 / 75%), inset 0 1px 0 oklch(1 0 0 / 5%);
-  color: var(--foreground);
-  flex: 0 0 348px;
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
 }
-
-.marquee-track > figure::before {
-  content: "Exemplo Mentalista";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 62px;
-  display: flex;
-  align-items: center;
-  padding: 0 18px 0 68px;
-  color: oklch(0.96 0.006 85);
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 650;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  background:
-    radial-gradient(circle at 32px 31px, oklch(0.82 0.135 84) 0 17px, oklch(0.3 0.04 72) 18px 20px, transparent 21px),
-    linear-gradient(180deg, oklch(0.205 0.012 72), oklch(0.175 0.01 72));
-  border-bottom: 1px solid oklch(1 0 0 / 7%);
-  z-index: 2;
-}
-
-.marquee-track > figure::after {
-  content: "SIMULAÇÃO • EXEMPLO FICTÍCIO";
-  position: absolute;
-  top: 18px;
-  right: 14px;
-  z-index: 3;
-  border: 1px solid oklch(0.79 0.135 84 / 30%);
-  border-radius: 999px;
-  padding: 4px 7px;
-  background: oklch(0.115 0.006 70 / 78%);
-  color: var(--primary);
-  font-family: var(--font-mono);
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-.marquee-track > figure > span,
-.marquee-track > figure > figcaption {
-  display: none !important;
-}
-
-.marquee-track > figure > blockquote {
-  position: relative;
-  display: flex !important;
-  flex-direction: column;
-  gap: 13px;
-  width: 100%;
-  height: 100%;
-  margin: 0 !important;
-  padding: 0 !important;
-  color: transparent !important;
-  font-size: 0 !important;
-  line-height: 0 !important;
-  overflow: hidden;
-}
-
-.marquee-track > figure > blockquote::before,
-.marquee-track > figure > blockquote::after {
-  display: block;
-  width: fit-content;
-  max-width: 90%;
-  padding: 10px 13px;
-  border-radius: 16px;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  line-height: 1.48;
-  letter-spacing: 0;
-  box-shadow: 0 5px 16px -12px oklch(0 0 0 / 80%);
-}
-
-.marquee-track > figure > blockquote::before {
-  align-self: flex-start;
-  margin-top: 3px;
-  border-top-left-radius: 5px;
-  background: oklch(0.225 0.012 72);
-  color: oklch(0.88 0.01 85);
-  content: "Ei, comecei a testar as missões ontem. Já percebi que estou prestando atenção em coisas que antes passavam batido.";
-}
-
-.marquee-track > figure > blockquote::after {
-  align-self: flex-end;
-  margin-top: auto;
-  border-bottom-right-radius: 5px;
-  background: linear-gradient(135deg, oklch(0.66 0.12 78), oklch(0.79 0.135 84));
-  color: oklch(0.14 0.012 70);
-  content: "A parte mais forte foi aprender a observar sem sair tirando conclusão. Parece simples, mas muda muito a forma de enxergar uma conversa.  ✓✓";
-}
-
-.marquee-track > figure:nth-child(8n + 2) > blockquote::before,
-.marquee-track > figure:nth-child(8n + 2) > blockquote::after { }
-
-.marquee-track > figure:nth-child(8n + 1)::before { content: "Caio R.  ·  @exemplo01"; }
-.marquee-track > figure:nth-child(8n + 2)::before { content: "Nina V.  ·  @exemplo02"; }
-.marquee-track > figure:nth-child(8n + 3)::before { content: "Theo M.  ·  @exemplo03"; }
-.marquee-track > figure:nth-child(8n + 4)::before { content: "Lia S.  ·  @exemplo04"; }
-.marquee-track > figure:nth-child(8n + 5)::before { content: "Ravi A.  ·  @exemplo05"; }
-.marquee-track > figure:nth-child(8n + 6)::before { content: "Maya C.  ·  @exemplo06"; }
-.marquee-track > figure:nth-child(8n + 7)::before { content: "Noah D.  ·  @exemplo07"; }
-.marquee-track > figure:nth-child(8n + 8)::before { content: "Luna F.  ·  @exemplo08"; }
-
-.marquee-track > figure:nth-child(8n + 1) > blockquote::before { content: "Eu comecei pelas missões de observação e achei muito mais difícil do que parecia. No terceiro dia já estava reparando em detalhes que eu ignorava."; }
-.marquee-track > figure:nth-child(8n + 1) > blockquote::after { content: "O mais interessante é que não é sobre adivinhar pessoas. É sobre aprender a olhar com calma antes de reagir.  ✓✓"; }
-.marquee-track > figure:nth-child(8n + 2) > blockquote::before { content: "Fiz o desafio de linha de base numa conversa comum e percebi como eu costumava interpretar tudo rápido demais."; }
-.marquee-track > figure:nth-child(8n + 2) > blockquote::after { content: "Agora eu paro, observo e só depois tiro uma conclusão. A diferença na minha comunicação é absurda.  ✓✓"; }
-.marquee-track > figure:nth-child(8n + 3) > blockquote::before { content: "A missão de hoje pediu para observar um ambiente por alguns minutos sem mexer no celular."; }
-.marquee-track > figure:nth-child(8n + 3) > blockquote::after { content: "Parece uma coisa boba, mas minha atenção estava completamente fragmentada. Foi um baita exercício.  ✓✓"; }
-.marquee-track > figure:nth-child(8n + 4) > blockquote::before { content: "Comecei sem expectativa e curti a ideia de transformar observação em treino diário."; }
-.marquee-track > figure:nth-child(8n + 4) > blockquote::after { content: "O sistema deixa mais fácil manter consistência porque sempre tem uma missão curta para fazer.  ✓✓"; }
-.marquee-track > figure:nth-child(8n + 5) > blockquote::before { content: "A parte de linguagem não-verbal chamou minha atenção. Estou começando a notar padrões que antes eu nem percebia."; }
-.marquee-track > figure:nth-child(8n + 5) > blockquote::after { content: "Estou usando como exercício de atenção, não como fórmula para julgar ninguém. É isso que deixa a prática boa.  ✓✓"; }
-.marquee-track > figure:nth-child(8n + 6) > blockquote::before { content: "Hoje fiz a missão de escuta ativa e tentei não preparar minha resposta enquanto a outra pessoa falava."; }
-.marquee-track > figure:nth-child(8n + 6) > blockquote::after { content: "Descobri que eu interrompia muito mais do que imaginava. Esse tipo de exercício é bem útil.  ✓✓"; }
-.marquee-track > figure:nth-child(8n + 7) > blockquote::before { content: "Gostei do formato das missões porque elas são pequenas e dá para encaixar no dia sem complicar."; }
-.marquee-track > figure:nth-child(8n + 7) > blockquote::after { content: "Depois de alguns dias, observar virou uma coisa que eu faço naturalmente em alguns momentos.  ✓✓"; }
-.marquee-track > figure:nth-child(8n + 8) > blockquote::before { content: "O desafio que mais me pegou foi ficar alguns minutos só observando o ambiente e anotando detalhes."; }
-.marquee-track > figure:nth-child(8n + 8) > blockquote::after { content: "Foi aí que entendi a proposta: treinar atenção antes de tentar interpretar qualquer coisa.  ✓✓"; }
-
-.marquee-track > figure:hover {
-  transform: translateY(-6px) !important;
-  border-color: oklch(0.79 0.135 84 / 48%) !important;
-  box-shadow: 0 28px 80px -34px oklch(0.79 0.135 84 / 30%), inset 0 1px 0 oklch(1 0 0 / 7%);
-}
-
-/* Reframe the existing section copy so the simulations are not presented as verified customer reviews. */
-@supports selector(section:has(.marquee)) {
-  section:has(.marquee) h2 { font-size: 0 !important; }
-  section:has(.marquee) h2::after {
-    content: "Veja o protocolo em ação";
-    font-size: clamp(2rem, 5vw, 3rem);
-  }
-  section:has(.marquee) .mb-14 > p { font-size: 0 !important; }
-  section:has(.marquee) .mb-14 > p::after {
-    content: "Simulações fictícias em formato de conversa para demonstrar a experiência do protocolo.";
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .marquee-track { animation-duration: 52s; }
-  .marquee-track > figure {
-    width: 304px !important;
-    min-width: 304px !important;
-    flex-basis: 304px;
-    height: 350px;
-    padding: 74px 15px 15px !important;
-    border-radius: 16px !important;
-  }
-  .marquee-track > figure::before {
-    height: 60px;
-    padding-left: 64px;
-    font-size: 12px;
-    background:
-      radial-gradient(circle at 30px 30px, oklch(0.82 0.135 84) 0 16px, oklch(0.3 0.04 72) 17px 19px, transparent 20px),
-      linear-gradient(180deg, oklch(0.205 0.012 72), oklch(0.175 0.01 72));
-  }
-  .marquee-track > figure::after { top: 17px; right: 10px; font-size: 6px; }
-  .marquee-track > figure > blockquote::before,
-  .marquee-track > figure > blockquote::after { max-width: 94%; font-size: 11.5px; }
-}
-
-.marquee:hover .marquee-track { animation-play-state: paused; }
-
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none !important; }
-  .marquee { overflow-x: auto !important; -webkit-mask-image: none; mask-image: none; }
+  .marquee { overflow-x: auto; }
 }
