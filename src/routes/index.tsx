@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   Check,
@@ -112,7 +112,7 @@ function Cta({
   return (
     <a
       href="#oferta"
-      className={`group inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-7 py-4 font-mono text-xs tracking-[0.18em] text-primary-foreground uppercase shadow-[0_0_40px_-10px_var(--primary)] transition hover:brightness-110 ${className}`}
+      className={`group inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-7 py-4 font-mono text-xs tracking-[0.18em] text-primary-foreground uppercase shadow-[0_0_40px_-10px_var(--primary)] glow-pulse transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:brightness-110 ${className}`}
     >
       {children}
       <ArrowRight className="size-4 transition group-hover:translate-x-1" />
@@ -136,16 +136,18 @@ function Section({
   return (
     <section id={id} className="border-t border-border/60 px-5 py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-14 text-center">
+        <Reveal className="mb-14 text-center">
           <Tag>{eyebrow}</Tag>
-          <h2 className="mt-6 font-display text-3xl leading-tight tracking-tight text-balance sm:text-5xl">
+          <h2 className="mt-6 font-display text-3xl leading-tight tracking-tight text-balance shimmer-text sm:text-5xl">
             {title}
           </h2>
           {sub ? (
             <p className="mx-auto mt-5 max-w-2xl text-muted-foreground text-pretty">{sub}</p>
           ) : null}
-        </div>
-        {children}
+        </Reveal>
+        <Reveal variant="reveal-zoom" delay={120}>
+          {children}
+        </Reveal>
       </div>
     </section>
   );
@@ -263,7 +265,7 @@ function TopBar() {
           {mm}:{ss}
         </span>
       </div>
-      <header className="border-b border-border/60 bg-background/85 backdrop-blur-md">
+      <header className="border-b border-border/60 bg-background shadow-[0_1px_0_0_oklch(0.79_0.135_84/0.12)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5">
           <div className="flex items-center gap-2.5">
             <span className="grid size-8 place-items-center rounded-sm border border-primary/40 text-primary">
@@ -277,10 +279,10 @@ function TopBar() {
             </span>
           </div>
           <nav className="hidden items-center gap-7 font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase lg:flex">
-            <a href="#metodo" className="transition hover:text-primary">Método Jane</a>
-            <a href="#sistema" className="transition hover:text-primary">Sistema</a>
-            <a href="#leia-pessoas" className="transition hover:text-primary">Leia Pessoas</a>
-            <a href="#oferta" className="transition hover:text-primary">Oferta</a>
+            <a href="#metodo" className="relative transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:text-primary hover:after:w-full">Método Jane</a>
+            <a href="#sistema" className="relative transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:text-primary hover:after:w-full">Sistema</a>
+            <a href="#leia-pessoas" className="relative transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:text-primary hover:after:w-full">Leia Pessoas</a>
+            <a href="#oferta" className="relative transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:text-primary hover:after:w-full">Oferta</a>
           </nav>
           <Cta className="px-4 py-2.5 text-[10px]">Ativar protocolo</Cta>
         </div>
