@@ -18,6 +18,7 @@ import {
   Zap,
 } from "lucide-react";
 import heroImage from "@/assets/observer-hero.jpg";
+
 import mentalistCouch from "@/assets/mentalist-couch.jpg";
 import mentalistGaze from "@/assets/mentalist-gaze.jpg";
 import mentalistRoom from "@/assets/mentalist-room.jpg";
@@ -301,8 +302,8 @@ function Hero() {
           <div className="overflow-hidden rounded-sm border border-primary/25 bg-card shadow-[0_30px_120px_-40px_var(--primary)]">
             <div className="relative">
               <img
-                src={heroImage}
-                alt="Homem observando com atenção em um escritório iluminado por abajur"
+                src={mentalistCouch}
+                alt="Mentalista de terno observando com um sorriso discreto, xícara de chá na mão"
                 width={1024}
                 height={1280}
                 className="aspect-4/5 w-full object-cover"
