@@ -111,6 +111,7 @@ function LandingPage() {
     <main className="min-h-screen bg-background text-foreground">
       <TopBar />
       <Hero />
+      <VslSection />
       <PainSection />
       <MethodSection />
       <SystemSection />
@@ -125,6 +126,69 @@ function LandingPage() {
     </main>
   );
 }
+
+function VslSection() {
+  return (
+    <section id="vsl" className="relative overflow-hidden border-t border-border/60 px-5 py-20">
+      <div className="pointer-events-none absolute inset-0 grid-noir opacity-25" />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+        <div>
+          <Tag>Briefing em vídeo // assista antes de decidir</Tag>
+          <h2 className="mt-6 font-display text-3xl leading-tight text-balance sm:text-5xl">
+            Em poucos minutos você entende{" "}
+            <span className="text-primary italic">como o protocolo funciona.</span>
+          </h2>
+          <p className="mt-5 max-w-lg leading-relaxed text-muted-foreground text-pretty">
+            Dê o play e veja a lógica por trás da observação treinada: linha de base,
+            micro-tells e dedução em cadeia — aplicados em situações reais do dia a dia.
+          </p>
+          <ul className="mt-7 space-y-2.5">
+            {[
+              "Por que você percebe as coisas tarde demais",
+              "Os 4 pilares do arquétipo mentalista",
+              "Como as missões diárias de 10 min funcionam",
+            ].map((t) => (
+              <li key={t} className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                <Check className="size-4 shrink-0 text-signal" /> {t}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-wrap items-center gap-5">
+            <Cta>
+              <Play className="size-4" /> Quero o acesso vitalício
+            </Cta>
+            <span className="font-mono text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+              Ative o som ▶
+            </span>
+          </div>
+        </div>
+
+        <div className="relative mx-auto w-full max-w-[380px]">
+          <div className="pointer-events-none absolute -inset-6 rounded-full bg-primary/12 blur-3xl" />
+          <div className="relative overflow-hidden rounded-sm border border-primary/30 bg-card shadow-[0_40px_140px_-50px_var(--primary)]">
+            <div className="flex items-center justify-between border-b border-border/60 px-4 py-2.5 font-mono text-[10px] tracking-[0.16em] uppercase">
+              <span className="inline-flex items-center gap-2 text-primary">
+                <span className="size-1.5 animate-pulse rounded-full bg-ember" /> Transmissão // VSL
+              </span>
+              <span className="text-muted-foreground">Observe</span>
+            </div>
+            <div className="aspect-9/16 w-full bg-black">
+              <iframe
+                src="https://www.youtube.com/embed/3SI8wMXSlyQ?rel=0&modestbranding=1&playsinline=1"
+                title="Protocolo Mentalista — apresentação em vídeo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+                className="size-full"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 function useCountdown(minutes: number) {
   const [left, setLeft] = useState(minutes * 60);
