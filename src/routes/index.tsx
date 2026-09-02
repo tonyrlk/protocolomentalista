@@ -214,7 +214,7 @@ function VslSection() {
 
         <div className="relative mx-auto w-full max-w-[380px]">
           <div className="pointer-events-none absolute -inset-6 rounded-full bg-primary/12 blur-3xl" />
-          <div className="relative overflow-hidden rounded-sm border border-primary/30 bg-card shadow-[0_40px_140px_-50px_var(--primary)]">
+          <div className="lift relative overflow-hidden rounded-sm border border-primary/30 bg-card shadow-[0_40px_140px_-50px_var(--primary)]">
             <div className="flex items-center justify-between border-b border-border/60 px-4 py-2.5 font-mono text-[10px] tracking-[0.16em] uppercase">
               <span className="inline-flex items-center gap-2 text-primary">
                 <span className="size-1.5 animate-pulse rounded-full bg-ember" /> Transmissão // VSL
@@ -312,7 +312,7 @@ function Hero() {
             <strong className="text-foreground">dedução em tempo real</strong>.
           </p>
 
-          <figure className="mt-8 flex gap-4 rounded-sm border border-primary/25 bg-card/60 p-5">
+          <figure className="lift mt-8 flex gap-4 rounded-sm border border-primary/25 bg-card/60 p-5">
             <Coffee className="mt-1 size-5 shrink-0 text-primary" />
             <div>
               <blockquote className="font-display text-base italic sm:text-lg">
@@ -347,7 +347,7 @@ function Hero() {
         </Reveal>
 
         <Reveal variant="reveal-right" delay={150} className="relative">
-          <div className="float-slow overflow-hidden rounded-sm border border-primary/25 bg-card shadow-[0_30px_120px_-40px_var(--primary)]">
+          <div className="lift float-slow overflow-hidden rounded-sm border border-primary/25 bg-card shadow-[0_30px_120px_-40px_var(--primary)]">
             <div className="relative overflow-hidden">
               <span className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px scan-line bg-primary/70" />
               <img
@@ -438,7 +438,7 @@ function PainSection() {
         {items.map(([t, d]) => (
           <div
             key={t}
-            className="rounded-sm border border-border/70 bg-card/50 p-6 transition hover:border-primary/40 hover:bg-card/70"
+            className="lift rounded-sm border border-border/70 bg-card/50 p-6 transition hover:border-primary/40 hover:bg-card/70"
           >
             <p className="font-display text-xl">{t}</p>
             <p className="mt-2 text-sm text-muted-foreground">{d}</p>
@@ -528,7 +528,7 @@ function MethodSection() {
           ))}
         </div>
 
-        <div className="rounded-sm border border-primary/25 bg-card/60 p-8">
+        <div className="lift rounded-sm border border-primary/25 bg-card/60 p-8">
           <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-primary uppercase">
             <Icon className="size-4" /> {P.tag} // análise prática
           </span>
@@ -588,7 +588,7 @@ function SystemSection() {
       sub="Esqueça cursos longos e passivos. Você recebe uma plataforma interativa para treinar sua mente todos os dias."
     >
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-sm border border-primary/25 bg-card/60">
+        <div className="lift rounded-sm border border-primary/25 bg-card/60">
           <div className="flex items-center justify-between border-b border-border/60 px-5 py-3 font-mono text-[10px] tracking-[0.16em] uppercase">
             <span className="text-primary">Terminal // the observer</span>
             <span className="text-muted-foreground">Vitalício</span>
@@ -650,7 +650,7 @@ function SystemSection() {
             return (
               <div
                 key={t as string}
-                className="rounded-sm border border-border/70 bg-card/40 p-5 transition hover:border-primary/40"
+                className="lift rounded-sm border border-border/70 bg-card/40 p-5 transition hover:border-primary/40"
               >
                 <I className="size-5 text-primary" />
                 <p className="mt-3 font-display text-xl">{t as string}</p>
@@ -678,7 +678,7 @@ function StepsSection() {
     >
       <div className="grid gap-4 md:grid-cols-3">
         {steps.map(([t, d], i) => (
-          <div key={t} className="relative rounded-sm border border-border/70 bg-card/40 p-7">
+          <div key={t} className="lift relative rounded-sm border border-border/70 bg-card/40 p-7">
             <span className="font-display text-5xl text-primary/25">0{i + 1}</span>
             <p className="mt-2 font-display text-2xl">{t}</p>
             <p className="mt-2 text-sm text-muted-foreground">{d}</p>
@@ -725,7 +725,7 @@ function ReadPeople() {
             </button>
           ))}
         </div>
-        <div className="overflow-hidden rounded-sm border border-primary/25 bg-card/60">
+        <div className="lift overflow-hidden rounded-sm border border-primary/25 bg-card/60">
           <img
             src={mentalistGaze}
             alt="Retrato em close de um mentalista analisando expressões"
@@ -768,7 +768,7 @@ function Benefits() {
     >
       <div className="grid gap-4 md:grid-cols-3">
         {items.map(([t, d]) => (
-          <div key={t} className="rounded-sm border border-border/70 bg-card/40 p-6">
+          <div key={t} className="lift rounded-sm border border-border/70 bg-card/40 p-6">
             <Check className="size-5 text-signal" />
             <p className="mt-3 font-display text-xl">{t}</p>
             <p className="mt-1.5 text-sm text-muted-foreground">{d}</p>
@@ -808,7 +808,7 @@ function Testimonials() {
     >
       <div className="grid gap-4 md:grid-cols-3">
         {items.map(([lvl, txt, name, role]) => (
-          <figure key={name} className="rounded-sm border border-border/70 bg-card/40 p-6">
+          <figure key={name} className="lift rounded-sm border border-border/70 bg-card/40 p-6">
             <span className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">
               {lvl}
             </span>
@@ -847,7 +847,7 @@ function Offer() {
       }
       sub="Ative seu terminal e comece sua evolução diária hoje mesmo."
     >
-      <div className="mx-auto max-w-3xl overflow-hidden rounded-sm border border-primary/40 bg-card/70 shadow-[0_40px_120px_-50px_var(--primary)]">
+      <div className="lift mx-auto max-w-3xl overflow-hidden rounded-sm border border-primary/40 bg-card/70 shadow-[0_40px_120px_-50px_var(--primary)]">
         <div className="flex items-center justify-between border-b border-border/60 bg-primary/8 px-6 py-3 font-mono text-[10px] tracking-[0.16em] uppercase">
           <span className="text-primary">Sistema completo // acesso vitalício</span>
           <span className="text-signal">Liberação imediata</span>
@@ -886,7 +886,7 @@ function Offer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-8 flex max-w-3xl items-start gap-5 rounded-sm border border-border/70 bg-card/40 p-6">
+      <div className="lift mx-auto mt-8 flex max-w-3xl items-start gap-5 rounded-sm border border-border/70 bg-card/40 p-6">
         <div className="grid size-16 shrink-0 place-items-center rounded-full border border-primary/50 text-center font-mono text-[10px] leading-tight text-primary">
           7 DIAS
         </div>
@@ -933,7 +933,7 @@ function Faq() {
     >
       <div className="mx-auto max-w-3xl space-y-3">
         {faqs.map(([q, a], i) => (
-          <div key={q} className="rounded-sm border border-border/70 bg-card/40">
+          <div key={q} className="lift rounded-sm border border-border/70 bg-card/40">
             <button
               onClick={() => setOpen(open === i ? null : i)}
               className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
