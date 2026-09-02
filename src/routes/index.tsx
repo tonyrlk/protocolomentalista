@@ -47,14 +47,60 @@ export const Route = createFileRoute("/")({
 
 /* ── primitives ─────────────────────────────────────────────── */
 
+function Reveal({
+  children,
+  variant = "reveal",
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  variant?: "reveal" | "reveal-left" | "reveal-right" | "reveal-zoom";
+  delay?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            el.classList.add("is-in");
+            io.unobserve(el);
+          }
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`reveal ${variant} ${className}`}
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/8 px-4 py-1.5 font-mono text-[11px] tracking-[0.2em] text-primary uppercase">
-      <span className="size-1.5 rounded-full bg-primary" />
+    <span className="relative inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/8 px-4 py-1.5 font-mono text-[11px] tracking-[0.2em] text-primary uppercase">
+      <span className="relative grid size-1.5 place-items-center">
+        <span className="absolute size-1.5 rounded-full bg-primary ping-ring" />
+        <span className="size-1.5 rounded-full bg-primary" />
+      </span>
       {children}
     </span>
   );
 }
+
 
 function Cta({
   children,
