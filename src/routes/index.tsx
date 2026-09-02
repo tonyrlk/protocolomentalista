@@ -849,42 +849,73 @@ function Benefits() {
 
 const TESTIMONIALS: [string, string, string, string][] = [
   [
-    "Nível 04",
-    "A diferença entre um curso qualquer e o Protocolo é a prática diária. Abro o celular de manhã, leio a missão de 10 minutos e aplico na primeira reunião.",
-    "Carlos H. Valente",
-    "Negociador & diretor comercial",
+    "Direct",
+    "Comprei o Protocolo Mentalista e já apliquei no mesmo dia, mano... a diferença foi absurda. Minha mente ficou muito mais focada e organizada.",
+    "Lucas Almeida",
+    "@lucasalmeida._",
   ],
   [
-    "Nível 05",
-    "As missões de calibração e detecção de hesitação me deram uma segurança absurda em audiências e conversas difíceis. Direto ao ponto.",
-    "Dra. Fernanda L.",
-    "Advogada",
+    "Direct",
+    "O melhor é que não é teoria solta, é um passo a passo claro que realmente funciona. Tô na semana 2 e já me sinto outra pessoa: menos ansiedade, mais disciplina e confiança lá em cima.",
+    "Lucas Almeida",
+    "@lucasalmeida._",
   ],
   [
-    "Nível 03",
-    "O sistema de XP te faz querer cumprir as missões todo dia. Parei de reagir por impulso e passei a observar antes de falar.",
-    "Rodrigo Silveira",
-    "Líder de equipe",
+    "Direct",
+    "Comprei o Protocolo Mentalista meio desconfiada e fui surpreendida! Achei que ia ser mais do mesmo, mas é muito mais profundo e prático.",
+    "Fernanda Costa",
+    "@fe.costa_",
   ],
   [
-    "Nível 06",
-    "Aprendi a ler linha de base antes de qualquer proposta. Fechei dois contratos só ajustando o timing da conversa.",
-    "Marina Toledo",
-    "Consultora de vendas",
+    "Direct",
+    "As técnicas de controle mental e reprogramação me ajudaram a parar de procrastinar e focar no que realmente importa. Já indiquei pra 3 amigas minhas!",
+    "Fernanda Costa",
+    "@fe.costa_",
   ],
   [
-    "Nível 02",
-    "Comecei cético. Na terceira semana já percebia micro-tells em entrevistas que antes passavam batido.",
-    "Igor Menezes",
-    "Recrutador sênior",
+    "Comentário",
+    "Cara, esse protocolo é insano! Me ajudou a sair da procrastinação e voltar a ter controle da minha vida.",
+    "joaopedroo",
+    "Instagram",
   ],
   [
-    "Nível 05",
-    "Autocontrole foi o maior ganho: hoje eu escuto, observo e só então respondo. Mudou minhas reuniões inteiras.",
-    "Patrícia Andrade",
-    "Gerente de projetos",
+    "Comentário",
+    "Melhor investimento que já fiz. Em poucos dias já senti minha mente mais leve e focada.",
+    "gabriel.morais",
+    "Instagram",
+  ],
+  [
+    "Comentário",
+    "As técnicas de mentalidade são poderosas demais. Protocolo Mentalista mudou minha forma de pensar!",
+    "leticiavieira",
+    "Instagram",
+  ],
+  [
+    "Comentário",
+    "Já testei vários métodos, mas esse é o único que realmente funciona. Vale cada centavo.",
+    "renato.dias",
+    "Instagram",
+  ],
+  [
+    "Comentário",
+    "Simplesmente transformador! Me sinto mais confiante, disciplinada e produtiva. Obrigada!",
+    "isabella.nunes",
+    "Instagram",
+  ],
+  [
+    "Direct",
+    "Fala mano, só passando pra dizer que o Protocolo Mentalista é brabo demais. Eu tava perdido, sem direção, e esse protocolo me deu clareza.",
+    "Matheus Silva",
+    "@matheussilva_",
+  ],
+  [
+    "Direct",
+    "As práticas diárias me ajudaram a criar hábitos vencedores e eliminar a preguiça. Hoje acordo cedo, treino, estudo e ainda tenho tempo pra mim.",
+    "Matheus Silva",
+    "@matheussilva_",
   ],
 ];
+
 
 function TestimonialCard({ item }: { item: [string, string, string, string] }) {
   const [lvl, txt, name, role] = item;
