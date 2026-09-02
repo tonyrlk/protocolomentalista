@@ -315,3 +315,20 @@
     animation: none !important;
   }
 }
+
+/* ── testimonials marquee ──────────────────────────────────────── */
+@keyframes obs-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: obs-marquee 42s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none !important; }
+  .marquee { overflow-x: auto; }
+}

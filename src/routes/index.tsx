@@ -172,6 +172,7 @@ function LandingPage() {
       <Faq />
       <FinalCta />
       <Footer />
+      <SocialProofPopups />
     </main>
   );
 }
