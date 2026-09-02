@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   Check,
@@ -47,14 +47,60 @@ export const Route = createFileRoute("/")({
 
 /* ── primitives ─────────────────────────────────────────────── */
 
+function Reveal({
+  children,
+  variant = "reveal",
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  variant?: "reveal" | "reveal-left" | "reveal-right" | "reveal-zoom";
+  delay?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            el.classList.add("is-in");
+            io.unobserve(el);
+          }
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`reveal ${variant} ${className}`}
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/8 px-4 py-1.5 font-mono text-[11px] tracking-[0.2em] text-primary uppercase">
-      <span className="size-1.5 rounded-full bg-primary" />
+    <span className="relative inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/8 px-4 py-1.5 font-mono text-[11px] tracking-[0.2em] text-primary uppercase">
+      <span className="relative grid size-1.5 place-items-center">
+        <span className="absolute size-1.5 rounded-full bg-primary ping-ring" />
+        <span className="size-1.5 rounded-full bg-primary" />
+      </span>
       {children}
     </span>
   );
 }
+
 
 function Cta({
   children,
@@ -66,7 +112,7 @@ function Cta({
   return (
     <a
       href="#oferta"
-      className={`group inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-7 py-4 font-mono text-xs tracking-[0.18em] text-primary-foreground uppercase shadow-[0_0_40px_-10px_var(--primary)] transition hover:brightness-110 ${className}`}
+      className={`group inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-7 py-4 font-mono text-xs tracking-[0.18em] text-primary-foreground uppercase shadow-[0_0_40px_-10px_var(--primary)] glow-pulse transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:brightness-110 ${className}`}
     >
       {children}
       <ArrowRight className="size-4 transition group-hover:translate-x-1" />
@@ -90,16 +136,18 @@ function Section({
   return (
     <section id={id} className="border-t border-border/60 px-5 py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-14 text-center">
+        <Reveal className="mb-14 text-center">
           <Tag>{eyebrow}</Tag>
-          <h2 className="mt-6 font-display text-3xl leading-tight tracking-tight text-balance sm:text-5xl">
+          <h2 className="mt-6 font-display text-3xl leading-tight tracking-tight text-balance shimmer-text sm:text-5xl">
             {title}
           </h2>
           {sub ? (
             <p className="mx-auto mt-5 max-w-2xl text-muted-foreground text-pretty">{sub}</p>
           ) : null}
-        </div>
-        {children}
+        </Reveal>
+        <Reveal variant="reveal-zoom" delay={120}>
+          {children}
+        </Reveal>
       </div>
     </section>
   );
@@ -166,7 +214,7 @@ function VslSection() {
 
         <div className="relative mx-auto w-full max-w-[380px]">
           <div className="pointer-events-none absolute -inset-6 rounded-full bg-primary/12 blur-3xl" />
-          <div className="relative overflow-hidden rounded-sm border border-primary/30 bg-card shadow-[0_40px_140px_-50px_var(--primary)]">
+          <div className="lift relative overflow-hidden rounded-sm border border-primary/30 bg-card shadow-[0_40px_140px_-50px_var(--primary)]">
             <div className="flex items-center justify-between border-b border-border/60 px-4 py-2.5 font-mono text-[10px] tracking-[0.16em] uppercase">
               <span className="inline-flex items-center gap-2 text-primary">
                 <span className="size-1.5 animate-pulse rounded-full bg-ember" /> Transmissão // VSL
@@ -217,7 +265,7 @@ function TopBar() {
           {mm}:{ss}
         </span>
       </div>
-      <header className="border-b border-border/60 bg-background/85 backdrop-blur-md">
+      <header className="border-b border-border/60 bg-background shadow-[0_1px_0_0_oklch(0.79_0.135_84/0.12)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5">
           <div className="flex items-center gap-2.5">
             <span className="grid size-8 place-items-center rounded-sm border border-primary/40 text-primary">
@@ -231,10 +279,10 @@ function TopBar() {
             </span>
           </div>
           <nav className="hidden items-center gap-7 font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase lg:flex">
-            <a href="#metodo" className="transition hover:text-primary">Método Jane</a>
-            <a href="#sistema" className="transition hover:text-primary">Sistema</a>
-            <a href="#leia-pessoas" className="transition hover:text-primary">Leia Pessoas</a>
-            <a href="#oferta" className="transition hover:text-primary">Oferta</a>
+            <a href="#metodo" className="relative transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:text-primary hover:after:w-full">Método Jane</a>
+            <a href="#sistema" className="relative transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:text-primary hover:after:w-full">Sistema</a>
+            <a href="#leia-pessoas" className="relative transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:text-primary hover:after:w-full">Leia Pessoas</a>
+            <a href="#oferta" className="relative transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:text-primary hover:after:w-full">Oferta</a>
           </nav>
           <Cta className="px-4 py-2.5 text-[10px]">Ativar protocolo</Cta>
         </div>
@@ -248,7 +296,7 @@ function Hero() {
     <section className="relative overflow-hidden px-5 pt-16 pb-24">
       <div className="pointer-events-none absolute inset-0 grid-noir opacity-40" />
       <div className="relative mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
-        <div>
+        <Reveal variant="reveal-left">
           <Tag>O efeito Patrick Jane // O mentalista</Tag>
           <h1 className="mt-7 font-display text-4xl leading-[1.05] tracking-tight text-balance sm:text-6xl">
             Observe como um{" "}
@@ -264,7 +312,7 @@ function Hero() {
             <strong className="text-foreground">dedução em tempo real</strong>.
           </p>
 
-          <figure className="mt-8 flex gap-4 rounded-sm border border-primary/25 bg-card/60 p-5">
+          <figure className="lift mt-8 flex gap-4 rounded-sm border border-primary/25 bg-card/60 p-5">
             <Coffee className="mt-1 size-5 shrink-0 text-primary" />
             <div>
               <blockquote className="font-display text-base italic sm:text-lg">
@@ -296,11 +344,12 @@ function Hero() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
 
-        <div className="relative">
-          <div className="overflow-hidden rounded-sm border border-primary/25 bg-card shadow-[0_30px_120px_-40px_var(--primary)]">
-            <div className="relative">
+        <Reveal variant="reveal-right" delay={150} className="relative">
+          <div className="lift float-slow overflow-hidden rounded-sm border border-primary/25 bg-card shadow-[0_30px_120px_-40px_var(--primary)]">
+            <div className="relative overflow-hidden">
+              <span className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px scan-line bg-primary/70" />
               <img
                 src={mentalistCouch}
                 alt="Mentalista de terno observando com um sorriso discreto, xícara de chá na mão"
@@ -337,7 +386,7 @@ function Hero() {
                 ].map(([t, s]) => (
                   <div
                     key={t}
-                    className="rounded-sm border border-border/70 bg-background/50 px-2 py-2.5 text-center"
+                    className="lift rounded-sm border border-border/70 bg-background/50 px-2 py-2.5 text-center"
                   >
                     <p className="font-mono text-[10px] tracking-[0.14em] text-primary uppercase">
                       {t}
@@ -348,7 +397,7 @@ function Hero() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -389,7 +438,7 @@ function PainSection() {
         {items.map(([t, d]) => (
           <div
             key={t}
-            className="rounded-sm border border-border/70 bg-card/50 p-6 transition hover:border-primary/40 hover:bg-card/70"
+            className="lift rounded-sm border border-border/70 bg-card/50 p-6 transition hover:border-primary/40 hover:bg-card/70"
           >
             <p className="font-display text-xl">{t}</p>
             <p className="mt-2 text-sm text-muted-foreground">{d}</p>
@@ -479,7 +528,7 @@ function MethodSection() {
           ))}
         </div>
 
-        <div className="rounded-sm border border-primary/25 bg-card/60 p-8">
+        <div className="lift rounded-sm border border-primary/25 bg-card/60 p-8">
           <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-primary uppercase">
             <Icon className="size-4" /> {P.tag} // análise prática
           </span>
@@ -539,7 +588,7 @@ function SystemSection() {
       sub="Esqueça cursos longos e passivos. Você recebe uma plataforma interativa para treinar sua mente todos os dias."
     >
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-sm border border-primary/25 bg-card/60">
+        <div className="lift rounded-sm border border-primary/25 bg-card/60">
           <div className="flex items-center justify-between border-b border-border/60 px-5 py-3 font-mono text-[10px] tracking-[0.16em] uppercase">
             <span className="text-primary">Terminal // the observer</span>
             <span className="text-muted-foreground">Vitalício</span>
@@ -601,7 +650,7 @@ function SystemSection() {
             return (
               <div
                 key={t as string}
-                className="rounded-sm border border-border/70 bg-card/40 p-5 transition hover:border-primary/40"
+                className="lift rounded-sm border border-border/70 bg-card/40 p-5 transition hover:border-primary/40"
               >
                 <I className="size-5 text-primary" />
                 <p className="mt-3 font-display text-xl">{t as string}</p>
@@ -629,7 +678,7 @@ function StepsSection() {
     >
       <div className="grid gap-4 md:grid-cols-3">
         {steps.map(([t, d], i) => (
-          <div key={t} className="relative rounded-sm border border-border/70 bg-card/40 p-7">
+          <div key={t} className="lift relative rounded-sm border border-border/70 bg-card/40 p-7">
             <span className="font-display text-5xl text-primary/25">0{i + 1}</span>
             <p className="mt-2 font-display text-2xl">{t}</p>
             <p className="mt-2 text-sm text-muted-foreground">{d}</p>
@@ -676,7 +725,7 @@ function ReadPeople() {
             </button>
           ))}
         </div>
-        <div className="overflow-hidden rounded-sm border border-primary/25 bg-card/60">
+        <div className="lift overflow-hidden rounded-sm border border-primary/25 bg-card/60">
           <img
             src={mentalistGaze}
             alt="Retrato em close de um mentalista analisando expressões"
@@ -719,7 +768,7 @@ function Benefits() {
     >
       <div className="grid gap-4 md:grid-cols-3">
         {items.map(([t, d]) => (
-          <div key={t} className="rounded-sm border border-border/70 bg-card/40 p-6">
+          <div key={t} className="lift rounded-sm border border-border/70 bg-card/40 p-6">
             <Check className="size-5 text-signal" />
             <p className="mt-3 font-display text-xl">{t}</p>
             <p className="mt-1.5 text-sm text-muted-foreground">{d}</p>
@@ -759,7 +808,7 @@ function Testimonials() {
     >
       <div className="grid gap-4 md:grid-cols-3">
         {items.map(([lvl, txt, name, role]) => (
-          <figure key={name} className="rounded-sm border border-border/70 bg-card/40 p-6">
+          <figure key={name} className="lift rounded-sm border border-border/70 bg-card/40 p-6">
             <span className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">
               {lvl}
             </span>
@@ -798,7 +847,7 @@ function Offer() {
       }
       sub="Ative seu terminal e comece sua evolução diária hoje mesmo."
     >
-      <div className="mx-auto max-w-3xl overflow-hidden rounded-sm border border-primary/40 bg-card/70 shadow-[0_40px_120px_-50px_var(--primary)]">
+      <div className="lift mx-auto max-w-3xl overflow-hidden rounded-sm border border-primary/40 bg-card/70 shadow-[0_40px_120px_-50px_var(--primary)]">
         <div className="flex items-center justify-between border-b border-border/60 bg-primary/8 px-6 py-3 font-mono text-[10px] tracking-[0.16em] uppercase">
           <span className="text-primary">Sistema completo // acesso vitalício</span>
           <span className="text-signal">Liberação imediata</span>
@@ -837,7 +886,7 @@ function Offer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-8 flex max-w-3xl items-start gap-5 rounded-sm border border-border/70 bg-card/40 p-6">
+      <div className="lift mx-auto mt-8 flex max-w-3xl items-start gap-5 rounded-sm border border-border/70 bg-card/40 p-6">
         <div className="grid size-16 shrink-0 place-items-center rounded-full border border-primary/50 text-center font-mono text-[10px] leading-tight text-primary">
           7 DIAS
         </div>
@@ -884,7 +933,7 @@ function Faq() {
     >
       <div className="mx-auto max-w-3xl space-y-3">
         {faqs.map(([q, a], i) => (
-          <div key={q} className="rounded-sm border border-border/70 bg-card/40">
+          <div key={q} className="lift rounded-sm border border-border/70 bg-card/40">
             <button
               onClick={() => setOpen(open === i ? null : i)}
               className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
