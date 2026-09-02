@@ -351,7 +351,7 @@ const PILLARS = [
 
 function MethodSection() {
   const [active, setActive] = useState(0);
-  const P = PILLARS[active];
+  const P = PILLARS[active]!;
   const Icon = P.icon;
   return (
     <Section
@@ -597,8 +597,8 @@ function ReadPeople() {
           <span className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">
             Módulo // leia pessoas
           </span>
-          <h3 className="mt-4 font-display text-3xl">{PRINCIPLES[sel][0]}</h3>
-          <p className="mt-4 leading-relaxed text-muted-foreground">{PRINCIPLES[sel][1]}</p>
+          <h3 className="mt-4 font-display text-3xl">{PRINCIPLES[sel]![0]}</h3>
+          <p className="mt-4 leading-relaxed text-muted-foreground">{PRINCIPLES[sel]![1]}</p>
           <p className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-wider text-signal uppercase">
             <Check className="size-4" /> Método de calibração em tempo real
           </p>
