@@ -371,17 +371,32 @@ function PainSection() {
       }
       sub="O problema não é falta de inteligência. É que atenção também pode ser treinada."
     >
+      <div className="relative mb-8 overflow-hidden rounded-sm border border-primary/25">
+        <img
+          src={mentalistRoom}
+          alt="Mentalista observando com calma uma sala cheia de pessoas"
+          width={1536}
+          height={1024}
+          loading="lazy"
+          className="h-64 w-full object-cover sm:h-80"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/45 to-transparent" />
+        <p className="absolute bottom-5 left-6 max-w-md font-display text-xl italic sm:text-2xl">
+          “Todo mundo está na mesma sala. Só um está realmente observando.”
+        </p>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         {items.map(([t, d]) => (
           <div
             key={t}
-            className="rounded-sm border border-border/70 bg-card/50 p-6 transition hover:border-primary/40"
+            className="rounded-sm border border-border/70 bg-card/50 p-6 transition hover:border-primary/40 hover:bg-card/70"
           >
             <p className="font-display text-xl">{t}</p>
             <p className="mt-2 text-sm text-muted-foreground">{d}</p>
           </div>
         ))}
       </div>
+
     </Section>
   );
 }
@@ -661,16 +676,27 @@ function ReadPeople() {
             </button>
           ))}
         </div>
-        <div className="rounded-sm border border-primary/25 bg-card/60 p-8">
-          <span className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">
-            Módulo // leia pessoas
-          </span>
-          <h3 className="mt-4 font-display text-3xl">{PRINCIPLES[sel]![0]}</h3>
-          <p className="mt-4 leading-relaxed text-muted-foreground">{PRINCIPLES[sel]![1]}</p>
-          <p className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-wider text-signal uppercase">
-            <Check className="size-4" /> Método de calibração em tempo real
-          </p>
+        <div className="overflow-hidden rounded-sm border border-primary/25 bg-card/60">
+          <img
+            src={mentalistGaze}
+            alt="Retrato em close de um mentalista analisando expressões"
+            width={1024}
+            height={1024}
+            loading="lazy"
+            className="h-56 w-full object-cover object-top"
+          />
+          <div className="p-8">
+            <span className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">
+              Módulo // leia pessoas
+            </span>
+            <h3 className="mt-4 font-display text-3xl">{PRINCIPLES[sel]![0]}</h3>
+            <p className="mt-4 leading-relaxed text-muted-foreground">{PRINCIPLES[sel]![1]}</p>
+            <p className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-wider text-signal uppercase">
+              <Check className="size-4" /> Método de calibração em tempo real
+            </p>
+          </div>
         </div>
+
       </div>
     </Section>
   );
