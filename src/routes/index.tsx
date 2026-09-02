@@ -221,16 +221,8 @@ function VslSection() {
               </span>
               <span className="text-muted-foreground">Observe</span>
             </div>
-            <div className="aspect-9/16 w-full bg-black">
-              <iframe
-                src="https://www.youtube.com/embed/3SI8wMXSlyQ?rel=0&modestbranding=1&playsinline=1"
-                title="Protocolo Mentalista — apresentação em vídeo"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-                className="size-full"
-              />
-            </div>
+            <VslPlayer />
+
           </div>
         </div>
       </div>
