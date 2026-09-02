@@ -20,6 +20,7 @@ import {
 import heroImage from "@/assets/observer-hero.jpg";
 
 import mentalistCouch from "@/assets/mentalist-couch.jpg";
+import vslCover from "@/assets/vsl-cover.jpg";
 import mentalistGaze from "@/assets/mentalist-gaze.jpg";
 import mentalistRoom from "@/assets/mentalist-room.jpg";
 
@@ -265,13 +266,26 @@ function VslPlayer() {
           className="pointer-events-none size-full"
         />
       ) : (
-        <img
-          src={mentalistCouch}
-          alt="Prévia do vídeo de apresentação do Protocolo Mentalista"
-          loading="lazy"
-          decoding="async"
-          className="size-full object-cover opacity-70"
-        />
+        <>
+          <img
+            src={vslCover}
+            alt="Capa do vídeo: mentalista observando uma multidão sob luz dourada"
+            width={720}
+            height={1280}
+            loading="lazy"
+            decoding="async"
+            className="size-full object-cover"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 text-center">
+            <span className="font-mono text-[10px] tracking-[0.2em] text-primary uppercase">
+              Assista agora // 4 min
+            </span>
+            <p className="mt-2 font-display text-xl leading-tight text-balance">
+              Como observar mais e reagir menos
+            </p>
+          </div>
+        </>
       )}
       <button
         type="button"
