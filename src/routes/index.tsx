@@ -232,6 +232,7 @@ function VslSection() {
 
 function VslPlayer() {
   const frameRef = useRef<HTMLIFrameElement>(null);
+  const [started, setStarted] = useState(false);
   const [playing, setPlaying] = useState(false);
 
   const send = (func: string) => {
@@ -242,21 +243,35 @@ function VslPlayer() {
   };
 
   const toggle = () => {
+    if (!started) {
+      setStarted(true);
+      setPlaying(true);
+      return;
+    }
     send(playing ? "pauseVideo" : "playVideo");
     setPlaying((p) => !p);
   };
 
   return (
     <div className="relative aspect-9/16 w-full bg-black">
-      <iframe
-        ref={frameRef}
-        src="https://www.youtube.com/embed/3SI8wMXSlyQ?rel=0&modestbranding=1&playsinline=1&controls=0&disablekb=1&fs=0&iv_load_policy=3&enablejsapi=1"
-        title="Protocolo Mentalista — apresentação em vídeo"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        loading="lazy"
-        tabIndex={-1}
-        className="pointer-events-none size-full"
-      />
+      {started ? (
+        <iframe
+          ref={frameRef}
+          src="https://www.youtube.com/embed/3SI8wMXSlyQ?rel=0&modestbranding=1&playsinline=1&controls=0&disablekb=1&fs=0&iv_load_policy=3&enablejsapi=1&autoplay=1"
+          title="Protocolo Mentalista — apresentação em vídeo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          tabIndex={-1}
+          className="pointer-events-none size-full"
+        />
+      ) : (
+        <img
+          src={mentalistCouch}
+          alt="Prévia do vídeo de apresentação do Protocolo Mentalista"
+          loading="lazy"
+          decoding="async"
+          className="size-full object-cover opacity-70"
+        />
+      )}
       <button
         type="button"
         onClick={toggle}
