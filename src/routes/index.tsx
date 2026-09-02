@@ -296,7 +296,7 @@ function Hero() {
     <section className="relative overflow-hidden px-5 pt-16 pb-24">
       <div className="pointer-events-none absolute inset-0 grid-noir opacity-40" />
       <div className="relative mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
-        <div>
+        <Reveal variant="reveal-left">
           <Tag>O efeito Patrick Jane // O mentalista</Tag>
           <h1 className="mt-7 font-display text-4xl leading-[1.05] tracking-tight text-balance sm:text-6xl">
             Observe como um{" "}
@@ -344,11 +344,12 @@ function Hero() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
 
-        <div className="relative">
-          <div className="overflow-hidden rounded-sm border border-primary/25 bg-card shadow-[0_30px_120px_-40px_var(--primary)]">
-            <div className="relative">
+        <Reveal variant="reveal-right" delay={150} className="relative">
+          <div className="float-slow overflow-hidden rounded-sm border border-primary/25 bg-card shadow-[0_30px_120px_-40px_var(--primary)]">
+            <div className="relative overflow-hidden">
+              <span className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px scan-line bg-primary/70" />
               <img
                 src={mentalistCouch}
                 alt="Mentalista de terno observando com um sorriso discreto, xícara de chá na mão"
