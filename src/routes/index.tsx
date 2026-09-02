@@ -172,6 +172,7 @@ function LandingPage() {
       <Faq />
       <FinalCta />
       <Footer />
+      <SocialProofPopups />
     </main>
   );
 }
@@ -232,6 +233,7 @@ function VslSection() {
 
 function VslPlayer() {
   const frameRef = useRef<HTMLIFrameElement>(null);
+  const [started, setStarted] = useState(false);
   const [playing, setPlaying] = useState(false);
 
   const send = (func: string) => {
@@ -242,21 +244,35 @@ function VslPlayer() {
   };
 
   const toggle = () => {
+    if (!started) {
+      setStarted(true);
+      setPlaying(true);
+      return;
+    }
     send(playing ? "pauseVideo" : "playVideo");
     setPlaying((p) => !p);
   };
 
   return (
     <div className="relative aspect-9/16 w-full bg-black">
-      <iframe
-        ref={frameRef}
-        src="https://www.youtube.com/embed/3SI8wMXSlyQ?rel=0&modestbranding=1&playsinline=1&controls=0&disablekb=1&fs=0&iv_load_policy=3&enablejsapi=1"
-        title="Protocolo Mentalista — apresentação em vídeo"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        loading="lazy"
-        tabIndex={-1}
-        className="pointer-events-none size-full"
-      />
+      {started ? (
+        <iframe
+          ref={frameRef}
+          src="https://www.youtube.com/embed/3SI8wMXSlyQ?rel=0&modestbranding=1&playsinline=1&controls=0&disablekb=1&fs=0&iv_load_policy=3&enablejsapi=1&autoplay=1"
+          title="Protocolo Mentalista — apresentação em vídeo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          tabIndex={-1}
+          className="pointer-events-none size-full"
+        />
+      ) : (
+        <img
+          src={mentalistCouch}
+          alt="Prévia do vídeo de apresentação do Protocolo Mentalista"
+          loading="lazy"
+          decoding="async"
+          className="size-full object-cover opacity-70"
+        />
+      )}
       <button
         type="button"
         onClick={toggle}
@@ -817,50 +833,136 @@ function Benefits() {
   );
 }
 
+const TESTIMONIALS: [string, string, string, string][] = [
+  [
+    "Nível 04",
+    "A diferença entre um curso qualquer e o Protocolo é a prática diária. Abro o celular de manhã, leio a missão de 10 minutos e aplico na primeira reunião.",
+    "Carlos H. Valente",
+    "Negociador & diretor comercial",
+  ],
+  [
+    "Nível 05",
+    "As missões de calibração e detecção de hesitação me deram uma segurança absurda em audiências e conversas difíceis. Direto ao ponto.",
+    "Dra. Fernanda L.",
+    "Advogada",
+  ],
+  [
+    "Nível 03",
+    "O sistema de XP te faz querer cumprir as missões todo dia. Parei de reagir por impulso e passei a observar antes de falar.",
+    "Rodrigo Silveira",
+    "Líder de equipe",
+  ],
+  [
+    "Nível 06",
+    "Aprendi a ler linha de base antes de qualquer proposta. Fechei dois contratos só ajustando o timing da conversa.",
+    "Marina Toledo",
+    "Consultora de vendas",
+  ],
+  [
+    "Nível 02",
+    "Comecei cético. Na terceira semana já percebia micro-tells em entrevistas que antes passavam batido.",
+    "Igor Menezes",
+    "Recrutador sênior",
+  ],
+  [
+    "Nível 05",
+    "Autocontrole foi o maior ganho: hoje eu escuto, observo e só então respondo. Mudou minhas reuniões inteiras.",
+    "Patrícia Andrade",
+    "Gerente de projetos",
+  ],
+];
+
+function TestimonialCard({ item }: { item: [string, string, string, string] }) {
+  const [lvl, txt, name, role] = item;
+  return (
+    <figure className="lift w-[320px] shrink-0 rounded-sm border border-border/70 bg-card/40 p-6 sm:w-[380px]">
+      <span className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">{lvl}</span>
+      <blockquote className="mt-3 text-sm leading-relaxed text-muted-foreground">“{txt}”</blockquote>
+      <figcaption className="mt-5 border-t border-border/60 pt-4">
+        <span className="block font-display text-lg">{name}</span>
+        <span className="text-xs text-muted-foreground">{role}</span>
+      </figcaption>
+    </figure>
+  );
+}
+
 function Testimonials() {
-  const items = [
-    [
-      "Nível 04",
-      "A diferença entre um curso qualquer e o Protocolo é a prática diária. Abro o celular de manhã, leio a missão de 10 minutos e aplico na primeira reunião.",
-      "Carlos H. Valente",
-      "Negociador & diretor comercial",
-    ],
-    [
-      "Nível 05",
-      "As missões de calibração e detecção de hesitação me deram uma segurança absurda em audiências e conversas difíceis. Direto ao ponto.",
-      "Dra. Fernanda L.",
-      "Advogada",
-    ],
-    [
-      "Nível 03",
-      "O sistema de XP te faz querer cumprir as missões todo dia. Parei de reagir por impulso e passei a observar antes de falar.",
-      "Rodrigo Silveira",
-      "Líder de equipe",
-    ],
-  ];
   return (
     <Section
       eyebrow="Experiência de membros"
       title={<>Quem já entrou no protocolo</>}
       sub="Relatos de quem aplica as missões no cotidiano."
     >
-      <div className="grid gap-4 md:grid-cols-3">
-        {items.map(([lvl, txt, name, role]) => (
-          <figure key={name} className="lift rounded-sm border border-border/70 bg-card/40 p-6">
-            <span className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">
-              {lvl}
-            </span>
-            <blockquote className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              “{txt}”
-            </blockquote>
-            <figcaption className="mt-5 border-t border-border/60 pt-4">
-              <span className="block font-display text-lg">{name}</span>
-              <span className="text-xs text-muted-foreground">{role}</span>
-            </figcaption>
-          </figure>
-        ))}
+      <div className="marquee relative -mx-5 overflow-hidden px-5">
+        <div className="marquee-track flex w-max gap-4 py-2">
+          {[...TESTIMONIALS, ...TESTIMONIALS].map((it, i) => (
+            <TestimonialCard key={`${it[2]}-${i}`} item={it} />
+          ))}
+        </div>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent" />
       </div>
     </Section>
+  );
+}
+
+const PURCHASE_EVENTS: [string, string][] = [
+  ["Lucas M.", "São Paulo, SP"],
+  ["Amanda R.", "Belo Horizonte, MG"],
+  ["Thiago P.", "Curitiba, PR"],
+  ["Juliana S.", "Recife, PE"],
+  ["Bruno C.", "Porto Alegre, RS"],
+  ["Camila F.", "Fortaleza, CE"],
+  ["Rafael D.", "Goiânia, GO"],
+  ["Larissa A.", "Florianópolis, SC"],
+];
+
+function SocialProofPopups() {
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    let hide: ReturnType<typeof setTimeout>;
+    const show = () => {
+      setVisible(true);
+      hide = setTimeout(() => setVisible(false), 5000);
+    };
+    const first = setTimeout(show, 6000);
+    const loop = setInterval(() => {
+      setIndex((i) => (i + 1) % PURCHASE_EVENTS.length);
+      show();
+    }, 13000);
+    return () => {
+      clearTimeout(first);
+      clearTimeout(hide);
+      clearInterval(loop);
+    };
+  }, []);
+
+  const ev = PURCHASE_EVENTS[index]!;
+  const minutes = ((index * 3) % 9) + 1;
+
+  return (
+    <div
+      aria-live="polite"
+      className={`pointer-events-none fixed bottom-5 left-5 z-50 transition-all duration-500 ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+      }`}
+    >
+      <div className="flex items-center gap-3 rounded-sm border border-primary/40 bg-card px-4 py-3 shadow-[0_20px_60px_-25px_var(--primary)]">
+        <span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
+          <Eye className="size-4" />
+        </span>
+        <div className="text-left">
+          <p className="text-sm font-semibold">
+            {ev[0]} <span className="font-normal text-muted-foreground">acabou de adquirir</span>
+          </p>
+          <p className="font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
+            {ev[1]} · há {minutes} min
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
 
