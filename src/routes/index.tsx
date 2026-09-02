@@ -221,22 +221,59 @@ function VslSection() {
               </span>
               <span className="text-muted-foreground">Observe</span>
             </div>
-            <div className="aspect-9/16 w-full bg-black">
-              <iframe
-                src="https://www.youtube.com/embed/3SI8wMXSlyQ?rel=0&modestbranding=1&playsinline=1"
-                title="Protocolo Mentalista — apresentação em vídeo"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-                className="size-full"
-              />
-            </div>
+            <VslPlayer />
+
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+function VslPlayer() {
+  const frameRef = useRef<HTMLIFrameElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const send = (func: string) => {
+    frameRef.current?.contentWindow?.postMessage(
+      JSON.stringify({ event: "command", func, args: [] }),
+      "*",
+    );
+  };
+
+  const toggle = () => {
+    send(playing ? "pauseVideo" : "playVideo");
+    setPlaying((p) => !p);
+  };
+
+  return (
+    <div className="relative aspect-9/16 w-full bg-black">
+      <iframe
+        ref={frameRef}
+        src="https://www.youtube.com/embed/3SI8wMXSlyQ?rel=0&modestbranding=1&playsinline=1&controls=0&disablekb=1&fs=0&iv_load_policy=3&enablejsapi=1"
+        title="Protocolo Mentalista — apresentação em vídeo"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        loading="lazy"
+        tabIndex={-1}
+        className="pointer-events-none size-full"
+      />
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={playing ? "Pausar vídeo" : "Reproduzir vídeo"}
+        className="absolute inset-0 grid place-items-center bg-transparent"
+      >
+        {!playing && (
+          <span className="grid size-16 place-items-center rounded-full bg-primary/90 text-primary-foreground shadow-[0_0_50px_-8px_var(--primary)]">
+            <Play className="size-6" />
+          </span>
+        )}
+      </button>
+    </div>
+  );
+}
+
+
 
 
 function useCountdown(minutes: number) {
