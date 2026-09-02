@@ -18,6 +18,9 @@ import {
   Zap,
 } from "lucide-react";
 import heroImage from "@/assets/observer-hero.jpg";
+import mentalistCouch from "@/assets/mentalist-couch.jpg";
+import mentalistGaze from "@/assets/mentalist-gaze.jpg";
+import mentalistRoom from "@/assets/mentalist-room.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
