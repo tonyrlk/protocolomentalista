@@ -19,6 +19,10 @@ import {
 } from "lucide-react";
 import heroImage from "@/assets/observer-hero.jpg";
 
+import mentalistCouch from "@/assets/mentalist-couch.jpg";
+import mentalistGaze from "@/assets/mentalist-gaze.jpg";
+import mentalistRoom from "@/assets/mentalist-room.jpg";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -108,6 +112,7 @@ function LandingPage() {
     <main className="min-h-screen bg-background text-foreground">
       <TopBar />
       <Hero />
+      <VslSection />
       <PainSection />
       <MethodSection />
       <SystemSection />
@@ -122,6 +127,69 @@ function LandingPage() {
     </main>
   );
 }
+
+function VslSection() {
+  return (
+    <section id="vsl" className="relative overflow-hidden border-t border-border/60 px-5 py-20">
+      <div className="pointer-events-none absolute inset-0 grid-noir opacity-25" />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+        <div>
+          <Tag>Briefing em vídeo // assista antes de decidir</Tag>
+          <h2 className="mt-6 font-display text-3xl leading-tight text-balance sm:text-5xl">
+            Em poucos minutos você entende{" "}
+            <span className="text-primary italic">como o protocolo funciona.</span>
+          </h2>
+          <p className="mt-5 max-w-lg leading-relaxed text-muted-foreground text-pretty">
+            Dê o play e veja a lógica por trás da observação treinada: linha de base,
+            micro-tells e dedução em cadeia — aplicados em situações reais do dia a dia.
+          </p>
+          <ul className="mt-7 space-y-2.5">
+            {[
+              "Por que você percebe as coisas tarde demais",
+              "Os 4 pilares do arquétipo mentalista",
+              "Como as missões diárias de 10 min funcionam",
+            ].map((t) => (
+              <li key={t} className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                <Check className="size-4 shrink-0 text-signal" /> {t}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-wrap items-center gap-5">
+            <Cta>
+              <Play className="size-4" /> Quero o acesso vitalício
+            </Cta>
+            <span className="font-mono text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+              Ative o som ▶
+            </span>
+          </div>
+        </div>
+
+        <div className="relative mx-auto w-full max-w-[380px]">
+          <div className="pointer-events-none absolute -inset-6 rounded-full bg-primary/12 blur-3xl" />
+          <div className="relative overflow-hidden rounded-sm border border-primary/30 bg-card shadow-[0_40px_140px_-50px_var(--primary)]">
+            <div className="flex items-center justify-between border-b border-border/60 px-4 py-2.5 font-mono text-[10px] tracking-[0.16em] uppercase">
+              <span className="inline-flex items-center gap-2 text-primary">
+                <span className="size-1.5 animate-pulse rounded-full bg-ember" /> Transmissão // VSL
+              </span>
+              <span className="text-muted-foreground">Observe</span>
+            </div>
+            <div className="aspect-9/16 w-full bg-black">
+              <iframe
+                src="https://www.youtube.com/embed/3SI8wMXSlyQ?rel=0&modestbranding=1&playsinline=1"
+                title="Protocolo Mentalista — apresentação em vídeo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+                className="size-full"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 function useCountdown(minutes: number) {
   const [left, setLeft] = useState(minutes * 60);
@@ -234,8 +302,8 @@ function Hero() {
           <div className="overflow-hidden rounded-sm border border-primary/25 bg-card shadow-[0_30px_120px_-40px_var(--primary)]">
             <div className="relative">
               <img
-                src={heroImage}
-                alt="Homem observando com atenção em um escritório iluminado por abajur"
+                src={mentalistCouch}
+                alt="Mentalista de terno observando com um sorriso discreto, xícara de chá na mão"
                 width={1024}
                 height={1280}
                 className="aspect-4/5 w-full object-cover"
@@ -303,17 +371,32 @@ function PainSection() {
       }
       sub="O problema não é falta de inteligência. É que atenção também pode ser treinada."
     >
+      <div className="relative mb-8 overflow-hidden rounded-sm border border-primary/25">
+        <img
+          src={mentalistRoom}
+          alt="Mentalista observando com calma uma sala cheia de pessoas"
+          width={1536}
+          height={1024}
+          loading="lazy"
+          className="h-64 w-full object-cover sm:h-80"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/45 to-transparent" />
+        <p className="absolute bottom-5 left-6 max-w-md font-display text-xl italic sm:text-2xl">
+          “Todo mundo está na mesma sala. Só um está realmente observando.”
+        </p>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         {items.map(([t, d]) => (
           <div
             key={t}
-            className="rounded-sm border border-border/70 bg-card/50 p-6 transition hover:border-primary/40"
+            className="rounded-sm border border-border/70 bg-card/50 p-6 transition hover:border-primary/40 hover:bg-card/70"
           >
             <p className="font-display text-xl">{t}</p>
             <p className="mt-2 text-sm text-muted-foreground">{d}</p>
           </div>
         ))}
       </div>
+
     </Section>
   );
 }
@@ -593,16 +676,27 @@ function ReadPeople() {
             </button>
           ))}
         </div>
-        <div className="rounded-sm border border-primary/25 bg-card/60 p-8">
-          <span className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">
-            Módulo // leia pessoas
-          </span>
-          <h3 className="mt-4 font-display text-3xl">{PRINCIPLES[sel]![0]}</h3>
-          <p className="mt-4 leading-relaxed text-muted-foreground">{PRINCIPLES[sel]![1]}</p>
-          <p className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-wider text-signal uppercase">
-            <Check className="size-4" /> Método de calibração em tempo real
-          </p>
+        <div className="overflow-hidden rounded-sm border border-primary/25 bg-card/60">
+          <img
+            src={mentalistGaze}
+            alt="Retrato em close de um mentalista analisando expressões"
+            width={1024}
+            height={1024}
+            loading="lazy"
+            className="h-56 w-full object-cover object-top"
+          />
+          <div className="p-8">
+            <span className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">
+              Módulo // leia pessoas
+            </span>
+            <h3 className="mt-4 font-display text-3xl">{PRINCIPLES[sel]![0]}</h3>
+            <p className="mt-4 leading-relaxed text-muted-foreground">{PRINCIPLES[sel]![1]}</p>
+            <p className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-wider text-signal uppercase">
+              <Check className="size-4" /> Método de calibração em tempo real
+            </p>
+          </div>
         </div>
+
       </div>
     </Section>
   );
@@ -813,6 +907,14 @@ function Faq() {
 function FinalCta() {
   return (
     <section className="relative overflow-hidden border-t border-border/60 px-5 py-24 text-center">
+      <img
+        src={heroImage}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="pointer-events-none absolute inset-0 size-full object-cover opacity-15"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/70 via-background/85 to-background" />
       <div className="pointer-events-none absolute inset-0 grid-noir opacity-30" />
       <div className="relative mx-auto max-w-3xl">
         <h2 className="font-display text-3xl leading-tight text-balance sm:text-5xl">
