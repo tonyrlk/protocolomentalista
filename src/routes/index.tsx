@@ -106,15 +106,20 @@ function Tag({ children }: { children: React.ReactNode }) {
 function Cta({
   children,
   className = "",
+  href = "#oferta",
 }: {
   children: React.ReactNode;
   className?: string;
+  href?: string;
 }) {
+  const external = href.startsWith("http");
   return (
     <a
-      href="#oferta"
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={`group inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-7 py-4 font-mono text-xs tracking-[0.18em] text-primary-foreground uppercase shadow-[0_0_40px_-10px_var(--primary)] glow-pulse transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:brightness-110 ${className}`}
     >
+
       {children}
       <ArrowRight className="size-4 transition group-hover:translate-x-1" />
     </a>
@@ -1058,7 +1063,7 @@ function Offer() {
             <p className="mt-1 text-xs text-muted-foreground">
               pagamento único à vista no PIX ou cartão
             </p>
-            <Cta className="mt-6 w-full">Ativar meu protocolo</Cta>
+            <Cta href="https://pay.cakto.com.br/3agki2d_1078738" className="mt-6 w-full">Ativar meu protocolo</Cta>
             <p className="mt-4 inline-flex flex-wrap items-center justify-center gap-4 font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
               <span className="inline-flex items-center gap-1.5">
                 <Lock className="size-3.5" /> Pagamento seguro
