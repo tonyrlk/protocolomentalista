@@ -23,6 +23,11 @@ import mentalistCouch from "@/assets/mentalist-couch.jpg";
 import vslCover from "@/assets/vsl-cover.jpg";
 import mentalistGaze from "@/assets/mentalist-gaze.jpg";
 import mentalistRoom from "@/assets/mentalist-room.jpg";
+import depoimento1 from "@/assets/depoimento-1.png";
+import depoimento2 from "@/assets/depoimento-2.png";
+import depoimento3 from "@/assets/depoimento-3.png";
+import depoimento4 from "@/assets/depoimento-4.png";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -852,86 +857,23 @@ function Benefits() {
   );
 }
 
-const TESTIMONIALS: [string, string, string, string][] = [
-  [
-    "Direct",
-    "Comprei o Protocolo Mentalista e já apliquei no mesmo dia, mano... a diferença foi absurda. Minha mente ficou muito mais focada e organizada.",
-    "Lucas Almeida",
-    "@lucasalmeida._",
-  ],
-  [
-    "Direct",
-    "O melhor é que não é teoria solta, é um passo a passo claro que realmente funciona. Tô na semana 2 e já me sinto outra pessoa: menos ansiedade, mais disciplina e confiança lá em cima.",
-    "Lucas Almeida",
-    "@lucasalmeida._",
-  ],
-  [
-    "Direct",
-    "Comprei o Protocolo Mentalista meio desconfiada e fui surpreendida! Achei que ia ser mais do mesmo, mas é muito mais profundo e prático.",
-    "Fernanda Costa",
-    "@fe.costa_",
-  ],
-  [
-    "Direct",
-    "As técnicas de controle mental e reprogramação me ajudaram a parar de procrastinar e focar no que realmente importa. Já indiquei pra 3 amigas minhas!",
-    "Fernanda Costa",
-    "@fe.costa_",
-  ],
-  [
-    "Comentário",
-    "Cara, esse protocolo é insano! Me ajudou a sair da procrastinação e voltar a ter controle da minha vida.",
-    "joaopedroo",
-    "Instagram",
-  ],
-  [
-    "Comentário",
-    "Melhor investimento que já fiz. Em poucos dias já senti minha mente mais leve e focada.",
-    "gabriel.morais",
-    "Instagram",
-  ],
-  [
-    "Comentário",
-    "As técnicas de mentalidade são poderosas demais. Protocolo Mentalista mudou minha forma de pensar!",
-    "leticiavieira",
-    "Instagram",
-  ],
-  [
-    "Comentário",
-    "Já testei vários métodos, mas esse é o único que realmente funciona. Vale cada centavo.",
-    "renato.dias",
-    "Instagram",
-  ],
-  [
-    "Comentário",
-    "Simplesmente transformador! Me sinto mais confiante, disciplinada e produtiva. Obrigada!",
-    "isabella.nunes",
-    "Instagram",
-  ],
-  [
-    "Direct",
-    "Fala mano, só passando pra dizer que o Protocolo Mentalista é brabo demais. Eu tava perdido, sem direção, e esse protocolo me deu clareza.",
-    "Matheus Silva",
-    "@matheussilva_",
-  ],
-  [
-    "Direct",
-    "As práticas diárias me ajudaram a criar hábitos vencedores e eliminar a preguiça. Hoje acordo cedo, treino, estudo e ainda tenho tempo pra mim.",
-    "Matheus Silva",
-    "@matheussilva_",
-  ],
+const TESTIMONIAL_SHOTS: [string, string][] = [
+  [depoimento1, "Conversa no Direct com Lucas Almeida sobre o Protocolo Mentalista"],
+  [depoimento2, "Conversa no Direct com Fernanda Costa sobre o Protocolo Mentalista"],
+  [depoimento3, "Comentários no Instagram sobre o Protocolo Mentalista"],
+  [depoimento4, "Conversa no Direct com Matheus Silva sobre o Protocolo Mentalista"],
 ];
 
-
-function TestimonialCard({ item }: { item: [string, string, string, string] }) {
-  const [lvl, txt, name, role] = item;
+function TestimonialShot({ src, alt }: { src: string; alt: string }) {
   return (
-    <figure className="lift w-[320px] shrink-0 rounded-sm border border-border/70 bg-card/40 p-6 sm:w-[380px]">
-      <span className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">{lvl}</span>
-      <blockquote className="mt-3 text-sm leading-relaxed text-muted-foreground">“{txt}”</blockquote>
-      <figcaption className="mt-5 border-t border-border/60 pt-4">
-        <span className="block font-display text-lg">{name}</span>
-        <span className="text-xs text-muted-foreground">{role}</span>
-      </figcaption>
+    <figure className="lift w-[300px] shrink-0 overflow-hidden rounded-sm border border-border/70 bg-card/40 sm:w-[380px]">
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        className="block h-auto w-full"
+      />
     </figure>
   );
 }
@@ -941,13 +883,15 @@ function Testimonials() {
     <Section
       eyebrow="Experiência de membros"
       title={<>Quem já entrou no protocolo</>}
-      sub="Relatos de quem aplica as missões no cotidiano."
+      sub="Prints reais de quem aplica as missões no cotidiano."
     >
       <div className="marquee relative -mx-5 overflow-hidden px-5">
         <div className="marquee-track flex w-max gap-4 py-2">
-          {[...TESTIMONIALS, ...TESTIMONIALS].map((it, i) => (
-            <TestimonialCard key={`${it[2]}-${i}`} item={it} />
-          ))}
+          {[...TESTIMONIAL_SHOTS, ...TESTIMONIAL_SHOTS, ...TESTIMONIAL_SHOTS].map(
+            ([src, alt], i) => (
+              <TestimonialShot key={`${alt}-${i}`} src={src} alt={alt} />
+            ),
+          )}
         </div>
         <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent" />
@@ -955,6 +899,7 @@ function Testimonials() {
     </Section>
   );
 }
+
 
 const PURCHASE_EVENTS: [string, string][] = [
   ["Lucas M.", "São Paulo, SP"],
