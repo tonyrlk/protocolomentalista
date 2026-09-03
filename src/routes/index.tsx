@@ -106,15 +106,20 @@ function Tag({ children }: { children: React.ReactNode }) {
 function Cta({
   children,
   className = "",
+  href = "#oferta",
 }: {
   children: React.ReactNode;
   className?: string;
+  href?: string;
 }) {
+  const external = href.startsWith("http");
   return (
     <a
-      href="#oferta"
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={`group inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-7 py-4 font-mono text-xs tracking-[0.18em] text-primary-foreground uppercase shadow-[0_0_40px_-10px_var(--primary)] glow-pulse transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:brightness-110 ${className}`}
     >
+
       {children}
       <ArrowRight className="size-4 transition group-hover:translate-x-1" />
     </a>
