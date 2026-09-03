@@ -1063,7 +1063,7 @@ function Offer() {
             <p className="mt-1 text-xs text-muted-foreground">
               pagamento único à vista no PIX ou cartão
             </p>
-            <Cta className="mt-6 w-full">Ativar meu protocolo</Cta>
+            <Cta href="https://pay.cakto.com.br/3agki2d_1078738" className="mt-6 w-full">Ativar meu protocolo</Cta>
             <p className="mt-4 inline-flex flex-wrap items-center justify-center gap-4 font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
               <span className="inline-flex items-center gap-1.5">
                 <Lock className="size-3.5" /> Pagamento seguro
