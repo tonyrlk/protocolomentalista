@@ -23,6 +23,11 @@ import mentalistCouch from "@/assets/mentalist-couch.jpg";
 import vslCover from "@/assets/vsl-cover.jpg";
 import mentalistGaze from "@/assets/mentalist-gaze.jpg";
 import mentalistRoom from "@/assets/mentalist-room.jpg";
+import depoimento1 from "@/assets/depoimento-1.png";
+import depoimento2 from "@/assets/depoimento-2.png";
+import depoimento3 from "@/assets/depoimento-3.png";
+import depoimento4 from "@/assets/depoimento-4.png";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
