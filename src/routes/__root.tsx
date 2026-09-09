@@ -12,6 +12,10 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
+const UTMIFY_PIXEL_ID = "6aa1bcd14dbf28bfd8d17ec4";
+const UTMIFY_PIXEL_URL = "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
+const UTMIFY_UTMS_URL = "https://cdn.utmify.com.br/scripts/utms/latest.js";
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -89,6 +93,30 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    window.pixelId = UTMIFY_PIXEL_ID;
+
+    const pixelScript = document.createElement("script");
+    pixelScript.src = UTMIFY_PIXEL_URL;
+    pixelScript.async = true;
+    pixelScript.defer = true;
+    pixelScript.dataset.utmify = "pixel";
+    document.head.appendChild(pixelScript);
+
+    const utmsScript = document.createElement("script");
+    utmsScript.src = UTMIFY_UTMS_URL;
+    utmsScript.async = true;
+    utmsScript.defer = true;
+    utmsScript.setAttribute("data-utmify-prevent-xcod-sck", "");
+    utmsScript.setAttribute("data-utmify-prevent-subids", "");
+    document.head.appendChild(utmsScript);
+
+    return () => {
+      pixelScript.remove();
+      utmsScript.remove();
+    };
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
